@@ -1,0 +1,23 @@
+{
+  "name": "ming-dingtalk",
+  "version": "0.0.1",
+  "description": "dingdingSDK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minglie/ming-dingtalk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minglie/ming-dingtalk/issues"
+  },
+  "homepage": "https://github.com/minglie/ming-dingtalk#readme",
+  "dependencies": {
+    "ming_node": "^0.1.5"
+  }
+}
