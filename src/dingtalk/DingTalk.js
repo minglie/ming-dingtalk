@@ -1,0 +1,1 @@
+const UserService = require('./UserService.js');const Client = require('./Client.js');class DingTalk{    constructor(opts) {      this.options= opts || {};;    }    get user(){       return new Client(new UserService(this.options));    }}module.exports = DingTalk;
