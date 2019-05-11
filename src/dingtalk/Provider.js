@@ -85,7 +85,7 @@ class Provider {
     return this._fetch;
   }
   set fetch(axios) {
-    let agent = axios.create(this.options.request || {timeout:5000});
+    let agent = axios.create(this.options.request || {timeout:10000});
 
       if(1)
       agent.interceptors.request.use(config => {
