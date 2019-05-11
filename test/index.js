@@ -1,0 +1,1 @@
+var M=require("ming_node");var app=M.server();app.listen(11111);app.get("/code",(req,res)=>{    console.log(req.params.a);    res.send("ok");})

@@ -1,6 +1,9 @@
 const DingTalk = require('./dingtalk/DingTalk');
 
 dingtalk=new DingTalk({
+    corpId:"ding43b3a65d280ba98835c2f4657eb6378f",
+    corpSecret:"dufgB390RGxOMDLXn_j-hHVmEieCkCVlUZlF3i9G0gGQq-7YLJuhwQeZftj-e0O",
+    ssoSecret:"Os-K1XTRI1axu3GxRF3MlIxryWu8fnke-4ewwF9rrjZSbGeAUmHB5BVR_v0EfRgw",
     appkey: 'dingqy4fr3r9fzserjvn',
     appsecret: 's0tqfENW0JOrEPWrPZLGQky8EdQwCF6VZ2KyqhLZABLGFUlCcUKN7ODuvTUx7MLn',
 })
@@ -25,6 +28,11 @@ dingtalk.auth.getToken().then(res => console.log(res));
 //dingtalk.user.get_admin_scope("manager6712").then(res => console.log(res.data));
 //根据unionid获取userid
 //dingtalk.user.getUseridByUnionid("O6VquZgrammhMIIWPXM2egiEiE").then(res => console.log(res.data));
+
+if(0)
+dingtalk.user.getuserinfo("199a57636b713257b6ab002b2603ab1e").then(res => console.log(res.data));
+
+
 
 //创建用户
 if(0)
@@ -163,21 +171,52 @@ dingtalk.role.list().then(res => console.log(JSON.stringify(res.data)));
 if(0)
 dingtalk.role.simplelist( {role_id:"327619019",size:20,offset:0}).then(res => console.log(res.data));
 
-
 //获取角色组
 if(0)
 dingtalk.role.getrolegroup( "327619001").then(res => console.log(res.data));
 
 //获取角色详情
 if(0)
-dingtalk.role.getrole(327619010).then(res => console.log(res.data));
+dingtalk.role.getrole(327619016).then(res => console.log(res.data));
 
-if(1)
-dingtalk.role.add_role({roleName:"系搜索",groupId:327619001}).then(res => console.log(res.data));
+if(0)
+dingtalk.role.add_role({roleName:"系搜索5",groupId:327619006}).then(res => console.log(res.data));
+
+if(0)
+dingtalk.role.update_role({roleName:"系搜索1",roleId:447810818}).then(res => console.log(res.data));
+
+//删除角色
+if(0)
+dingtalk.role.deleterole(447864441).then(res => console.log(res.data));
+
+
+if(0)
+dingtalk.role.add_role_group("名1").then(res => console.log(res.data));
+
+
+if(0)
+dingtalk.role.addrolesforemps({roleIds:"327619009,327619025",userIds:"manager6712"}).then(res => console.log(res.data));
+
+
+//批量删除员工角色
+if(0)
+dingtalk.role.removerolesforemps({roleIds:"327619009,327619025",userIds:"manager6712"}).then(res => console.log(res.data));
+
+
+//获取外部联系人标签列表
+if(0)
+ dingtalk.extcontact.listlabelgroups().then(res => console.log(res.data));
+
+
+//获取外部联系人标签列表
+if(0)
+ dingtalk.extcontact.list().then(res => console.log(res.data));
+
+//获取企业外部联系人详情
+
+if(0)
+dingtalk.extcontact.get("1918472868114179").then(res => console.log(res.data));
 
 
 
-
-
-
-
+dingtalk.sso.gettoken().then(res => console.log(res.data));
