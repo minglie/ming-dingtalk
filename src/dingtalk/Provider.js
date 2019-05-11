@@ -1,3 +1,4 @@
+const querystring = require('querystring');
 
 
 const config = {
@@ -8,15 +9,15 @@ const config = {
 
 class Provider {
   constructor(opts) {
-      if (typeof opts.corpId !== 'string') throw Error('Params Error: opts.corpId must be a String.');
-      if (typeof opts.corpSecret !== 'string') throw Error('Params Error: opts.corpSecret must be a String.');
+      if (typeof opts.appkey !== 'string') throw Error('Params Error: opts.appkey must be a String.');
+      if (typeof opts.appsecret !== 'string') throw Error('Params Error: opts.appsecret must be a String.');
       this.name = opts.name || config.name;
       // API Host
       this._apiHost = opts.baseUrl || config.baseUrl;
       // 钉钉授予的组织ID
-      this._corpId = opts.corpId;
+      this._appkey = opts.appkey;
       // 钉钉授予的组织秘钥
-      this._corpSecret = opts.corpSecret;
+      this._appsecret = opts.appsecret;
       this.options = opts || {};
       // 缓存token
       this._token = {
@@ -26,6 +27,8 @@ class Provider {
   }
 
     get token() {
+       return "63181674bd23369a9b648ca345dd183b";
+
         const token = this._token;
         if (!token.expires || token.expires < +new Date()) {
             return this.getToken();
@@ -38,13 +41,32 @@ class Provider {
         return this._token;
     }
 
+
+    /**
+     * 请求参数构造器
+     * 将基础参数进行封装, 用于适配suqin.fetch()
+     * @param {Object} opts 基础参数
+     */
+    async fg(opts = {}) {
+        return {
+            method: opts.method ? opts.method.toLowerCase() : 'get',
+            url: `${opts.url}?${querystring.stringify({
+                access_token: await this.token,
+                ...opts.query,
+            })}`,
+            headers: opts.headers || {},
+            data: opts.data,
+        };
+    }
+
+
     /**
      * 获取Token
      */
     async getToken() {
         return this.fetch({
             method: 'get',
-            url: `${this._apiHost}/gettoken?appkey=${this._corpId}&appsecret=${this._corpSecret}`,
+            url: `${this._apiHost}/gettoken?appkey=${this._appkey}&appsecret=${this._appsecret}`,
         })
             .then(res => {
                 const token = res.data;
@@ -63,8 +85,30 @@ class Provider {
     return this._fetch;
   }
   set fetch(axios) {
-    let agent = axios.create(this.options.request || {});
-    this._fetch = agent.request;
+    let agent = axios.create(this.options.request || {timeout:5000});
+
+      if(1)
+      agent.interceptors.request.use(config => {
+          M.log(config.method,config.url,config.data)
+          return config;
+      },error=>{
+           Promise.reject(error)
+         }
+      );
+
+
+      if(0)
+      agent.interceptors.response.use(
+          response=>{
+              return response;
+          },
+          error => {
+              return Promise.reject(error)
+          }
+        )
+
+
+       this._fetch = agent.request;
   }
 
 

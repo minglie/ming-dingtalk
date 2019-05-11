@@ -36,8 +36,8 @@ class Client {
     
 
       writeAPIs: function (APIName, ...args) {
-            let result = {};
-            result = this._findAPI(this.mainProvider.writeAPIs, APIName).bind(this.mainProvider)(providerName, ...args);
+            let result;
+             result = this._findAPI(this.mainProvider.writeAPIs, APIName).bind(this.mainProvider)(...args);
             return result;
       }
     };
