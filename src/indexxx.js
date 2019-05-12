@@ -9,7 +9,7 @@ dingtalk=new DingTalk({
 })
 
 //获取accessToken
-if(0)
+if(1)
 dingtalk.auth.getToken().then(res => console.log(res));
 
 
@@ -223,5 +223,5 @@ dingtalk.sso.gettoken().then(res => console.log(res.data));
 if(0)
 dingtalk.sso.ming_getuserinfoByCode("121a2aabe42e3778af25201bf4c73cb7").then(res => console.log(res.data));
 
-if(1)
+if(0)
 dingtalk.sns.getuserinfo_bycode("ee2f9b56e1d53939aebf537466665011").then(res => console.log(res.data));
