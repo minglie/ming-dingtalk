@@ -6,6 +6,9 @@ dingtalk=new DingTalk({
     ssoSecret:"Os-K1XTRI1axu3GxRF3MlIxryWu8fnke-4ewwF9rrjZSbGeAUmHB5BVR_v0EfRgw",
     appkey: 'dingqy4fr3r9fzserjvn',
     appsecret: 's0tqfENW0JOrEPWrPZLGQky8EdQwCF6VZ2KyqhLZABLGFUlCcUKN7ODuvTUx7MLn',
+    agentId:223960246,
+    sweepCodeLoginAppID:"dingoakle1mbzknj6xhbc0",
+    sweepCodeLoginAppsecret:"l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM"
 })
 
 //获取accessToken
@@ -225,3 +228,41 @@ dingtalk.sso.ming_getuserinfoByCode("121a2aabe42e3778af25201bf4c73cb7").then(res
 
 if(0)
 dingtalk.sns.getuserinfo_bycode("ee2f9b56e1d53939aebf537466665011").then(res => console.log(res.data));
+
+
+if(0)
+    dingtalk.auth.getToken().then(res => console.log(res));
+
+
+
+
+//获取二维码
+if(0)
+    dingtalk.sns.getQRParmasUrl().then(res => console.log(res));
+
+if(0)
+    dingtalk.sns.getSnstoken().then(res => console.log(res))
+
+
+
+if(0)
+    dingtalk.message.corpconversation_asyncsend_v2().then(res => console.log(res.data))
+
+
+if(0)
+    dingtalk.message.corpconversation_getsendprogress(35138977623).then(res => console.log(res.data))
+
+
+
+if(0)
+    dingtalk.message.corpconversation_getsendresult(35138977623).then(res => console.log(res.data))
+
+
+
+if(0)
+    dingtalk.jsapi.getTicket().then(res => console.log(res))
+
+
+if(0)
+dingtalk.jsapi.getJSConfig("https://github.com/").then(res => console.log(res))
+

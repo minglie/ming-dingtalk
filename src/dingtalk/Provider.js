@@ -27,7 +27,7 @@ class Provider {
   }
 
     get token() {
-       return "fa73b1e45405350190f298ab65e8c189";
+       return "8673bb7f09fa3855b8812948b4b3cbda";
 
         const token = this._token;
         if (!token.expires || token.expires < +new Date()) {

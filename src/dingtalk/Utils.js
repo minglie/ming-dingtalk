@@ -1,6 +1,6 @@
 'use strict';
 
-const crypto = require('crypto');
+const CryptoJS=require("crypto-js")
 
 const utils = {
 
@@ -14,26 +14,21 @@ const utils = {
     return ret;
   },
 
-  /**
-   * 生成 JSAPI 签名
-   *
-   * @param {String} ticket - JSON ticket
-   * @param {String} nonceStr - 随机字符串
-   * @param {Number} timeStamp - 时间戳
-   * @param {String} url - 被签名链接
-   *
-   * @return {String} 签名
-   */
-  getJsapiSign(ticket, nonceStr, timeStamp, url) {
-    const plain = `jsapi_ticket=${ ticket }&noncestr=${ nonceStr }&timestamp=${ timeStamp }&url=${ url }`;
-    const sha1 = crypto.createHash('sha1');
-    sha1.update(plain, 'utf8');
-    return sha1.digest('hex');
-  },
+    /**
+     * 获取签名信息
+     * @param {*} ticket
+     * @param {*} nonce
+     * @param {*} timeStamp
+     * @param {*} url
+     */
+     sign(ticket, nonceStr, timeStamp, url) {
+        let plainTex = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "&timestamp=" + timeStamp + "&url=" + url;
+        let signature = CryptoJS.SHA1(plainTex).toString();
+        return signature;
+     },
 
   /**
    * 通过URL直接生成 JSAPI 签名
-   *
    * @param {String} ticket - JSON ticket
    * @param {String} url - 被签名链接
    *
@@ -43,9 +38,9 @@ const utils = {
     const result = {};
     const timeStamp = result.timeStamp = new Date().getTime();
     const nonceStr = result.nonceStr = this._randomString(6);
-    result.ticket = ticket;
+   // result.ticket = ticket;
     result.url = url;
-    result.signature = utils.getJsapiSign(ticket, nonceStr, timeStamp, url);
+    result.signature = utils.sign(ticket, nonceStr, timeStamp, url);
     return result;
   },
 

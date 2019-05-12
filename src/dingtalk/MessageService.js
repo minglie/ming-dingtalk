@@ -29,8 +29,8 @@ const Provider = require('./provider');
             async corpconversation_asyncsend_v2(
                 opts={ agent_id:this.options.agentId,
                        userid_list:"manager6712",
-                       dept_id_list:"71482134",
-                       msg:{"msgtype":"text","text":{"content":"000只有一个人收到11"}}}
+                      // dept_id_list:"71482134",
+                       msg:{"msgtype":"text","text":{"content":"000只有一个人收dd到11"}}}
 
                 ) {
                 return this.fetch(await this.fg({
@@ -39,6 +39,36 @@ const Provider = require('./provider');
                     data: opts
                 }));
             },
+
+            //查询工作通知消息的发送进度
+            async corpconversation_getsendprogress(task_id,
+                opts={ agent_id:this.options.agentId}
+
+            ) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/message/corpconversation/getsendprogress`,
+                    data: { ...opts, task_id }
+                }));
+            },
+
+            //查询工作通知消息的发送结果
+            async corpconversation_getsendresult(task_id, opts={ agent_id:this.options.agentId}
+            ) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/message/corpconversation/getsendresult`,
+                    data: { ...opts, task_id }
+                }));
+            },
+
+
+
+
+
+
+
+            
 
 
 

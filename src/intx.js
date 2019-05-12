@@ -1,1 +1,0 @@
-con_url1="https://oapi.dingtalk.com/connect/qrconnect?" +    "appid=dingoakle1mbzknj6xhbc0&" +    "response_type=code&" +    "scope=snsapi_login&" +    "state=STATE&" +    "redirect_uri=http://127.0.0.1:11111/user/callback"console.log(con_url1)
