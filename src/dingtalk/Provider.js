@@ -27,7 +27,7 @@ class Provider {
   }
 
     get token() {
-       return "1ac5ffffa86b3a71afd79be9deac7ea1";
+       return "fa73b1e45405350190f298ab65e8c189";
 
         const token = this._token;
         if (!token.expires || token.expires < +new Date()) {
@@ -89,7 +89,7 @@ class Provider {
 
       if(1)
       agent.interceptors.request.use(config => {
-          M.log(config.method,config.url,config.data)
+          M.log(config.method,config.url,JSON.stringify(config.data))
           return config;
       },error=>{
            Promise.reject(error)
