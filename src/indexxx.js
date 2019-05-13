@@ -263,6 +263,6 @@ if(0)
     dingtalk.jsapi.getTicket().then(res => console.log(res))
 
 
-if(0)
+if(1)
 dingtalk.jsapi.getJSConfig("https://github.com/").then(res => console.log(res))
 
