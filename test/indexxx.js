@@ -1,4 +1,4 @@
-const DingTalk = require('./dingtalk/DingTalk');
+const DingTalk = require('../src/dingtalk/DingTalk');
 
 dingtalk=new DingTalk({
     corpId:"ding43b3a65d280ba98835c2f4657eb6378f",
@@ -12,13 +12,13 @@ dingtalk=new DingTalk({
 })
 
 //获取accessToken
-if(1)
+if(0)
 dingtalk.auth.getToken().then(res => console.log(res));
 
 
 
 //获取用户详情
-//dingtalk.user.get("manager6712").then(res => console.log(res.data));
+dingtalk.user.get("manager6712").then(res => console.log(res.data));
 //获取部门用户userid列表
 //dingtalk.user.getDeptMember("71433174").then(res => console.log(res.data));
 //获取部门用户
@@ -263,6 +263,6 @@ if(0)
     dingtalk.jsapi.getTicket().then(res => console.log(res))
 
 
-if(1)
+if(0)
 dingtalk.jsapi.getJSConfig("https://github.com/").then(res => console.log(res))
 
