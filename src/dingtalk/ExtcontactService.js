@@ -1,1 +1,99 @@
-const Provider = require('./provider'); class ExtcontactService extends Provider {    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);    }    /* eslint-disable class-methods-use-this */    get readAPIs() {        return {            /**              *»ñÈ¡Íâ²¿ÁªÏµÈË±êÇ©ÁĞ±í             */            async listlabelgroups(opts = {size:20,offset:0}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/listlabelgroups`,                    data: opts,                }));            },            /**             * »ñÈ¡Íâ²¿ÁªÏµÈËÁĞ±í             */            async list(opts = {size:20,offset:0}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/list`,                    data: opts,                }));            },            /**             * »ñÈ¡ÆóÒµÍâ²¿ÁªÏµÈËÏêÇé             */            async get(user_id,opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/get`,                    query: opts,                    data:{user_id}                }));            },        };    }    get writeAPIs() {        return {            /**             * Ìí¼ÓÍâ²¿ÁªÏµÈË             */            async create(opts={contact:{}}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/create`,                    data: opts,                }));            },            /**             * ¸üĞÂÍâ²¿ÁªÏµÈË             */            async update(opts={contact:{}}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/update`,                    data: opts,                }));            },            /**             * É¾³ıÍâ²¿ÁªÏµÈË             */            async delete(user_id,opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/extcontact/delete`,                    query: opts,                    data: {user_id},                }));            },        };    }    /* eslint-enable class-methods-use-this */};module.exports =ExtcontactService;
+
+const Provider = require('./provider');
+
+
+
+ class ExtcontactService extends Provider {
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+    }
+
+
+
+    /* eslint-disable class-methods-use-this */
+    get readAPIs() {
+        return {
+            /**
+              *è·å–å¤–éƒ¨è”ç³»äººæ ‡ç­¾åˆ—è¡¨
+             */
+            async listlabelgroups(opts = {size:20,offset:0}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/listlabelgroups`,
+                    data: opts,
+                }));
+            },
+
+            /**
+             * è·å–å¤–éƒ¨è”ç³»äººåˆ—è¡¨
+             */
+            async list(opts = {size:20,offset:0}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/list`,
+                    data: opts,
+                }));
+            },
+
+            /**
+             * è·å–ä¼ä¸šå¤–éƒ¨è”ç³»äººè¯¦æƒ…
+             */
+            async get(user_id,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/get`,
+                    query: opts,
+                    data:{user_id}
+                }));
+            },
+
+        };
+    }
+    get writeAPIs() {
+        return {
+            /**
+             * æ·»åŠ å¤–éƒ¨è”ç³»äºº
+             */
+            async create(opts={contact:{}}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/create`,
+                    data: opts,
+                }));
+            },
+
+            /**
+             * æ›´æ–°å¤–éƒ¨è”ç³»äºº
+             */
+            async update(opts={contact:{}}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/update`,
+                    data: opts,
+                }));
+            },
+
+
+            /**
+             * åˆ é™¤å¤–éƒ¨è”ç³»äºº
+             */
+            async delete(user_id,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/extcontact/delete`,
+                    query: opts,
+                    data: {user_id},
+                }));
+            },
+
+        };
+    }
+    /* eslint-enable class-methods-use-this */
+};
+
+
+module.exports =ExtcontactService;

@@ -1,1 +1,83 @@
-const Provider = require('./provider');const axios = require('axios');const utils = require('./Utils'); class JsapiService extends Provider {    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);        this.fetch=axios;        this._ticket = {            value: null,            expires: null,        };    }     get ticket() {         const ticket = this._ticket;         if (!ticket.expires || ticket.expires < +new Date()) {             return this.getTicket();         }         return token.value;     }     set ticket(val) {         this._token = val;         return this._token;     }     /**      * »ñÈ¡Token      */     async getTicket() {         return this.get_jsapi_ticket().then(res => {                 const ticket = res.data;                 const now = +new Date();                 this.ticket = {                     value: ticket.ticket,                     // ¶¤¶¤°ä·¢µÄtokenÓĞĞ§ÆÚÎª7200Ãë                     // ÌáÇ° 300Ãë ÖØĞÂ»ñÈ¡token                     expires: now + ((7200 - 300) * 1000),                 };                 return ticket.ticket;             });     }    /**     * »ñÈ¡jsapi_ticket     */    async get_jsapi_ticket(opts = {type:"jsapi"}) {        return this.fetch(await this.fg({            url: `${this._apiHost}/get_jsapi_ticket`,            query: { ...opts},        }));    }     /**      * »ñÈ¡Ç©Ãû²ÎÊı      */     async getJSConfig(url) {         let  r= utils.getSign(await this.ticket,url)         r.agentId=this.options.agentId;         r.corpId=this.options.corpId;         return r;     }};module.exports =JsapiService;
+
+const Provider = require('./provider');
+const axios = require('axios');
+const utils = require('./Utils');
+
+
+
+ class JsapiService extends Provider {
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+        this.fetch=axios;
+        this._ticket = {
+            value: null,
+            expires: null,
+        };
+    }
+
+
+     get ticket() {
+         const ticket = this._ticket;
+         if (!ticket.expires || ticket.expires < +new Date()) {
+             return this.getTicket();
+         }
+         return token.value;
+     }
+
+     set ticket(val) {
+         this._token = val;
+         return this._token;
+     }
+
+
+     /**
+      * è·å–Token
+      */
+     async getTicket() {
+         return this.get_jsapi_ticket().then(res => {
+                 const ticket = res.data;
+                 const now = +new Date();
+                 this.ticket = {
+                     value: ticket.ticket,
+                     // é’‰é’‰é¢å‘çš„tokenæœ‰æ•ˆæœŸä¸º7200ç§’
+                     // æå‰ 300ç§’ é‡æ–°è·å–token
+                     expires: now + ((7200 - 300) * 1000),
+                 };
+                 return ticket.ticket;
+             });
+     }
+
+
+
+    /**
+     * è·å–jsapi_ticket
+     */
+    async get_jsapi_ticket(opts = {type:"jsapi"}) {
+        return this.fetch(await this.fg({
+            url: `${this._apiHost}/get_jsapi_ticket`,
+            query: { ...opts},
+        }));
+    }
+
+
+     /**
+      * è·å–ç­¾åå‚æ•°
+      */
+     async getJSConfig(url) {
+         let  r= utils.getSign(await this.ticket,url)
+         r.agentId=this.options.agentId;
+         r.corpId=this.options.corpId;
+         return r;
+     }
+
+
+
+
+};
+
+
+module.exports =JsapiService;

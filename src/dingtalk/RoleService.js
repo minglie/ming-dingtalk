@@ -1,1 +1,152 @@
-const Provider = require('./provider'); class RoleService extends Provider {    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);    }    /* eslint-disable class-methods-use-this */    get readAPIs() {        return {            /**              *»ñÈ¡½ÇÉ«ÁĞ±í             */            async list(opts = {size:20,offset:0}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/topapi/role/list`,                    query: opts,                }));            },            /**             * »ñÈ¡½ÇÉ«ÏÂµÄÔ±¹¤ÁĞ±í             */            async simplelist(opts = {role_id:"1",size:20,offset:0}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/topapi/role/simplelist`,                    query: opts,                }));            },            /**             * »ñÈ¡½ÇÉ«×é             * @param {String} id             * @param {Object} opts ÆäÓà²ÎÊı             */            async getrolegroup(group_id,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/topapi/role/getrolegroup`,                    query: { ...opts, group_id },                }));            },            /**             * »ñÈ¡½ÇÉ«ÏêÇé             */            async getrole(roleId,opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/role/getrole`,                    query: { ...opts},                    data:{roleId}                }));            },        };    }    get writeAPIs() {        return {            /**             * ´´½¨½ÇÉ«             */            async add_role(role = {roleName:"xx",groupId:1},opts) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/role/add_role`,                    query: opts,                    data: role,                }));            },            /**             * ¸üĞÂ½ÇÉ«             */            async update_role(role = {roleName:"xx",roleId:1},opts) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/role/update_role`,                    query: opts,                    data: role,                }));            },            /**             * É¾³ı½ÇÉ«             * @param {String} id   Èº×éID             * @param {Object} opts ÆäÓà²ÎÊı             */            async deleterole(role_id,opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/role/deleterole`,                    query: opts,                    data: {role_id},                }));            },            /**             * ´´½¨½ÇÉ«×é             */            async add_role_group(name,opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/role/add_role_group`,                    query: opts,                    data: {name},                }));            },            /**             * ÅúÁ¿Ôö¼ÓÔ±¹¤½ÇÉ«             */            async addrolesforemps(opts = {roleIds:"",userIds:""}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/role/addrolesforemps`,                    data: opts,                }));            },            /**             * ÅúÁ¿É¾³ıÔ±¹¤½ÇÉ«             */            async removerolesforemps(opts = {roleIds:"",userIds:""}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/topapi/role/removerolesforemps`,                    data: opts,                }));            },        };    }    /* eslint-enable class-methods-use-this */};module.exports =RoleService;
+
+const Provider = require('./provider');
+
+
+
+ class RoleService extends Provider {
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+    }
+
+
+
+    /* eslint-disable class-methods-use-this */
+    get readAPIs() {
+        return {
+            /**
+              *è·å–è§’è‰²åˆ—è¡¨
+             */
+            async list(opts = {size:20,offset:0}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/topapi/role/list`,
+                    query: opts,
+                }));
+            },
+
+            /**
+             * è·å–è§’è‰²ä¸‹çš„å‘˜å·¥åˆ—è¡¨
+             */
+            async simplelist(opts = {role_id:"1",size:20,offset:0}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/topapi/role/simplelist`,
+                    query: opts,
+                }));
+            },
+
+            /**
+             * è·å–è§’è‰²ç»„
+             * @param {String} id
+             * @param {Object} opts å…¶ä½™å‚æ•°
+             */
+            async getrolegroup(group_id,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/topapi/role/getrolegroup`,
+                    query: { ...opts, group_id },
+                }));
+            },
+
+            /**
+             * è·å–è§’è‰²è¯¦æƒ…
+             */
+            async getrole(roleId,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/role/getrole`,
+                    query: { ...opts},
+                    data:{roleId}
+                }));
+            },
+
+        };
+    }
+    get writeAPIs() {
+        return {
+            /**
+             * åˆ›å»ºè§’è‰²
+             */
+            async add_role(role = {roleName:"xx",groupId:1},opts) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/role/add_role`,
+                    query: opts,
+                    data: role,
+                }));
+            },
+
+            /**
+             * æ›´æ–°è§’è‰²
+             */
+            async update_role(role = {roleName:"xx",roleId:1},opts) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/role/update_role`,
+                    query: opts,
+                    data: role,
+                }));
+            },
+
+
+            /**
+             * åˆ é™¤è§’è‰²
+             * @param {String} id   ç¾¤ç»„ID
+             * @param {Object} opts å…¶ä½™å‚æ•°
+             */
+            async deleterole(role_id,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/role/deleterole`,
+                    query: opts,
+                    data: {role_id},
+                }));
+            },
+
+
+
+            /**
+             * åˆ›å»ºè§’è‰²ç»„
+             */
+            async add_role_group(name,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/role/add_role_group`,
+                    query: opts,
+                    data: {name},
+                }));
+            },
+
+            /**
+             * æ‰¹é‡å¢åŠ å‘˜å·¥è§’è‰²
+             */
+            async addrolesforemps(opts = {roleIds:"",userIds:""}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/role/addrolesforemps`,
+                    data: opts,
+                }));
+            },
+
+
+            /**
+             * æ‰¹é‡åˆ é™¤å‘˜å·¥è§’è‰²
+             */
+            async removerolesforemps(opts = {roleIds:"",userIds:""}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/topapi/role/removerolesforemps`,
+                    data: opts,
+                }));
+            },
+
+
+
+        };
+    }
+    /* eslint-enable class-methods-use-this */
+};
+
+
+module.exports =RoleService;

@@ -14,12 +14,12 @@ class Provider {
       this.name = opts.name || config.name;
       // API Host
       this._apiHost = opts.baseUrl || config.baseUrl;
-      // ¶¤¶¤ÊÚÓèµÄ×éÖ¯ID
+      // é’‰é’‰æˆäºˆçš„ç»„ç»‡ID
       this._appkey = opts.appkey;
-      // ¶¤¶¤ÊÚÓèµÄ×éÖ¯ÃØÔ¿
+      // é’‰é’‰æˆäºˆçš„ç»„ç»‡ç§˜é’¥
       this._appsecret = opts.appsecret;
       this.options = opts || {};
-      // »º´ætoken
+      // ç¼“å­˜token
       this._token = {
           value: null,
           expires: null,
@@ -43,9 +43,9 @@ class Provider {
 
 
     /**
-     * ÇëÇó²ÎÊı¹¹ÔìÆ÷
-     * ½«»ù´¡²ÎÊı½øĞĞ·â×°, ÓÃÓÚÊÊÅäsuqin.fetch()
-     * @param {Object} opts »ù´¡²ÎÊı
+     * è¯·æ±‚å‚æ•°æ„é€ å™¨
+     * å°†åŸºç¡€å‚æ•°è¿›è¡Œå°è£…, ç”¨äºé€‚é…suqin.fetch()
+     * @param {Object} opts åŸºç¡€å‚æ•°
      */
     async fg(opts = {}) {
         return {
@@ -61,7 +61,7 @@ class Provider {
 
 
     /**
-     * »ñÈ¡Token
+     * è·å–Token
      */
     async getToken() {
         return this.fetch({
@@ -73,8 +73,8 @@ class Provider {
                 const now = +new Date();
                 this.token = {
                     value: token.access_token,
-                    // ¶¤¶¤°ä·¢µÄtokenÓĞĞ§ÆÚÎª7200Ãë
-                    // ÌáÇ° 300Ãë ÖØĞÂ»ñÈ¡token
+                    // é’‰é’‰é¢å‘çš„tokenæœ‰æ•ˆæœŸä¸º7200ç§’
+                    // æå‰ 300ç§’ é‡æ–°è·å–token
                     expires: now + ((7200 - 300) * 1000),
                 };
                 return token.access_token;

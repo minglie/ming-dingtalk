@@ -1,1 +1,165 @@
-const Provider = require('./provider'); class UserService extends Provider {    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);    }    /* eslint-disable class-methods-use-this */    get readAPIs() {        return {            /**             * »ñÈ¡ÓÃ»§ÏêÇé             * @param opts             * @returns {Promise.<*>}             */            async get(userid,opts = {lang:"zh_CN"}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/get`,                    query: { ...opts, userid },                }));            },            /**             * »ñÈ¡²¿ÃÅÓÃ»§useridÁĞ±í             * @param opts             * @returns {Promise.<*>}             */            async getDeptMember(deptId,opts = { deptId: 1}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/getDeptMember`,                    query: { ...opts, deptId },                }));            },            /**             * »ñÈ¡²¿ÃÅÓÃ»§             * @param opts             * @returns {Promise.<*>}             */            async simplelist(opts = {department_id: 1,offset:0,size:5}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/simplelist`,                    query: opts,                }));            },            /**             * »ñÈ¡²¿ÃÅÓÃ»§ÏêÇé             * @param opts             * @returns {Promise.<*>}             */            async listbypage(opts = {department_id: 1,offset:0,size:5}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/listbypage`,                    query: opts,                }));            },            /**             * »ñÈ¡¹ÜÀíÔ±ÁĞ±í             * @param opts             * @returns {Promise.<*>}             */            async get_admin(opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/get_admin`,                    query: opts,                }));            },            /**             * »ñÈ¡¹ÜÀíÔ±Í¨Ñ¶Â¼È¨ÏŞ·¶Î§             * @param opts             * @returns {Promise.<*>}             */            async get_admin_scope(userid,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/topapi/user/get_admin_scope`,                    query: { ...opts, userid },                }));            },            /**             * ¸ù¾İunionid»ñÈ¡userid             * @param opts             * @returns {Promise.<*>}             */            async getUseridByUnionid(unionid,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/getUseridByUnionid`,                    query: { ...opts, unionid },                }));            },            /**             *»ñÈ¡ÓÃ»§userid             */            async getuserinfo(code,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/getuserinfo`,                    query: {code},                }));            },        };    }    get writeAPIs() {        return {            /**             * ´´½¨ÓÃ»§             * @param {Object} member ³ÉÔ±             * @param {Object} opts   ÆäÓà²ÎÊı             */            async create(member, opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/user/create`,                    query: opts,                    data: member,                }));            },            /**             * ¸üĞÂÓÃ»§             * @param {Object} member ³ÉÔ±             * @param {Object} opts   ÆäÓà²ÎÊı             */            async update(member, opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/user/update`,                    query: opts,                    data: member,                }));            },            /**             * É¾³ı³ÉÔ±             * @param {String} id   ³ÉÔ±ID             * @param {Object} opts ÆäÓà²ÎÊı             */            async delete(userid,opts = {}) {                return this.fetch(await this.fg({                    method: 'GET',                    url: `${this._apiHost}/user/delete`,                    query: { ...opts, userid },                }));            },        };    }    /* eslint-enable class-methods-use-this */};module.exports =UserService;
+
+const Provider = require('./provider');
+
+
+
+ class UserService extends Provider {
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+    }
+
+
+
+    /* eslint-disable class-methods-use-this */
+    get readAPIs() {
+        return {
+            /**
+             * è·å–ç”¨æˆ·è¯¦æƒ…
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async get(userid,opts = {lang:"zh_CN"}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/get`,
+                    query: { ...opts, userid },
+                }));
+            },
+            /**
+             * è·å–éƒ¨é—¨ç”¨æˆ·useridåˆ—è¡¨
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async getDeptMember(deptId,opts = { deptId: 1}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/getDeptMember`,
+                    query: { ...opts, deptId },
+                }));
+            },
+            /**
+             * è·å–éƒ¨é—¨ç”¨æˆ·
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async simplelist(opts = {department_id: 1,offset:0,size:5}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/simplelist`,
+                    query: opts,
+                }));
+            },
+
+            /**
+             * è·å–éƒ¨é—¨ç”¨æˆ·è¯¦æƒ…
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async listbypage(opts = {department_id: 1,offset:0,size:5}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/listbypage`,
+                    query: opts,
+                }));
+            },
+
+
+            /**
+             * è·å–ç®¡ç†å‘˜åˆ—è¡¨
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async get_admin(opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/get_admin`,
+                    query: opts,
+                }));
+            },
+
+            /**
+             * è·å–ç®¡ç†å‘˜é€šè®¯å½•æƒé™èŒƒå›´
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async get_admin_scope(userid,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/topapi/user/get_admin_scope`,
+                    query: { ...opts, userid },
+                }));
+            },
+
+            /**
+             * æ ¹æ®unionidè·å–userid
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async getUseridByUnionid(unionid,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/getUseridByUnionid`,
+                    query: { ...opts, unionid },
+                }));
+            },
+
+            /**
+             *è·å–ç”¨æˆ·userid
+             */
+            async getuserinfo(code,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/getuserinfo`,
+                    query: {code},
+                }));
+            },
+
+        };
+    }
+    get writeAPIs() {
+        return {
+            /**
+             * åˆ›å»ºç”¨æˆ·
+             * @param {Object} member æˆå‘˜
+             * @param {Object} opts   å…¶ä½™å‚æ•°
+             */
+            async create(member, opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/user/create`,
+                    query: opts,
+                    data: member,
+                }));
+            },
+
+
+            /**
+             * æ›´æ–°ç”¨æˆ·
+             * @param {Object} member æˆå‘˜
+             * @param {Object} opts   å…¶ä½™å‚æ•°
+             */
+            async update(member, opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/user/update`,
+                    query: opts,
+                    data: member,
+                }));
+            },
+
+
+            /**
+             * åˆ é™¤æˆå‘˜
+             * @param {String} id   æˆå‘˜ID
+             * @param {Object} opts å…¶ä½™å‚æ•°
+             */
+            async delete(userid,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'GET',
+                    url: `${this._apiHost}/user/delete`,
+                    query: { ...opts, userid },
+                }));
+            },
+        };
+    }
+    /* eslint-enable class-methods-use-this */
+};
+
+
+module.exports =UserService;

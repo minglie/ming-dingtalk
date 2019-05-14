@@ -1,1 +1,98 @@
-const axios = require('axios');const Provider = require('./provider');var urlencode = require('urlencode');const CryptoJS=require("crypto-js") class SnsService  extends Provider{    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);        this.fetch=axios;        this._snstoken = {            value: null,            expires: null,        };    }     get snstoken() {         const snstoken = this._snstoken;         if (!snstoken.expires || snstoken.expires < +new Date()) {             return this.getSnstoken();         }         return snstoken.value;     }     set snstoken(val) {         this._token = val;         return this._token;     }     /**      * »ñÈ¡Token      */     async getSnstoken() {         return this.fetch({             method: 'get',             url: `${this._apiHost}/sns/gettoken?appid=${this.options.sweepCodeLoginAppID}&appsecret=${this.options.sweepCodeLoginAppsecret}`,         }).then(res => {             const snstoken = res.data;             const now = +new Date();             this.snstoken = {                 value: snstoken.access_token,                 // ¶¤¶¤°ä·¢µÄtokenÓĞĞ§ÆÚÎª7200Ãë                 // ÌáÇ° 300Ãë ÖØĞÂ»ñÈ¡token                 expires: now + ((7200 - 300) * 1000),             };             return snstoken.access_token;         });     }    /**      *»ñÈ¡Ó¦ÓÃºóÌ¨ÃâµÇµÄaccessToken     */    async getuserinfo_bycode(tmp_auth_code) {        const timeStamp = new Date().getTime();        let signature = CryptoJS.HmacSHA256(timeStamp+"", this.options.sweepCodeLoginAppsecret);        signature = CryptoJS.enc.Base64.stringify(signature);        signature = urlencode.encode(signature,"utf-8")        const accessKey=this.options.sweepCodeLoginAppID;        const query={signature,timeStamp,accessKey}        return this.fetch({            method:"POST",            url: `${this._apiHost}/sns/getuserinfo_bycode?signature=${query.signature}&timestamp=${query.timeStamp}&accessKey=${query.accessKey}`,            data:{tmp_auth_code}        });    }    async getQRParmasUrl(opts = {appid:this.options.sweepCodeLoginAppID,redirectUri:"http://127.0.0.1:8888/callback"}) {       const url=`https://oapi.dingtalk.com/connect/qrconnect?` +            `appid=${opts.appid}&` +            `response_type=code&` +            `scope=snsapi_login&` +            `state=STATE&` +            `redirect_uri=${opts.redirectUri}`        return url;    }    /* eslint-enable class-methods-use-this */};module.exports =SnsService;
+
+
+const axios = require('axios');
+const Provider = require('./provider');
+var urlencode = require('urlencode');
+const CryptoJS=require("crypto-js")
+
+
+
+
+
+ class SnsService  extends Provider{
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+        this.fetch=axios;
+        this._snstoken = {
+            value: null,
+            expires: null,
+        };
+    }
+
+     get snstoken() {
+         const snstoken = this._snstoken;
+         if (!snstoken.expires || snstoken.expires < +new Date()) {
+             return this.getSnstoken();
+         }
+         return snstoken.value;
+     }
+
+     set snstoken(val) {
+         this._token = val;
+         return this._token;
+     }
+
+     /**
+      * è·å–Token
+      */
+     async getSnstoken() {
+         return this.fetch({
+             method: 'get',
+             url: `${this._apiHost}/sns/gettoken?appid=${this.options.sweepCodeLoginAppID}&appsecret=${this.options.sweepCodeLoginAppsecret}`,
+         }).then(res => {
+             const snstoken = res.data;
+             const now = +new Date();
+             this.snstoken = {
+                 value: snstoken.access_token,
+                 // é’‰é’‰é¢å‘çš„tokenæœ‰æ•ˆæœŸä¸º7200ç§’
+                 // æå‰ 300ç§’ é‡æ–°è·å–token
+                 expires: now + ((7200 - 300) * 1000),
+             };
+             return snstoken.access_token;
+         });
+     }
+
+
+
+    /**
+      *è·å–åº”ç”¨åå°å…ç™»çš„accessToken
+     */
+    async getuserinfo_bycode(tmp_auth_code) {
+        const timeStamp = new Date().getTime();
+        let signature = CryptoJS.HmacSHA256(timeStamp+"", this.options.sweepCodeLoginAppsecret);
+        signature = CryptoJS.enc.Base64.stringify(signature);
+        signature = urlencode.encode(signature,"utf-8")
+        const accessKey=this.options.sweepCodeLoginAppID;
+        const query={signature,timeStamp,accessKey}
+        return this.fetch({
+            method:"POST",
+            url: `${this._apiHost}/sns/getuserinfo_bycode?signature=${query.signature}&timestamp=${query.timeStamp}&accessKey=${query.accessKey}`,
+            data:{tmp_auth_code}
+        });
+    }
+
+
+    async getQRParmasUrl(opts = {appid:this.options.sweepCodeLoginAppID,redirectUri:"http://127.0.0.1:8888/callback"}) {
+       const url=`https://oapi.dingtalk.com/connect/qrconnect?` +
+            `appid=${opts.appid}&` +
+            `response_type=code&` +
+            `scope=snsapi_login&` +
+            `state=STATE&` +
+            `redirect_uri=${opts.redirectUri}`
+        return url;
+    }
+
+
+
+
+
+
+    /* eslint-enable class-methods-use-this */
+};
+
+
+module.exports =SnsService;

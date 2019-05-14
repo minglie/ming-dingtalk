@@ -1,1 +1,144 @@
-const querystring = require('querystring');const Provider = require('./provider'); class DepartmentService extends Provider {    /**     * ¹¹Ôìº¯Êı     * @param {Object} opts ¸ü¶àÅäÖÃÏî     */    constructor(opts) {        super(opts);    }    /* eslint-disable class-methods-use-this */    get readAPIs() {        return {            /**             * »ñÈ¡×Ó²¿ÃÅIDÁĞ±í             * @param opts             * @returns {Promise.<*>}             */            async list_ids(id,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/department/list_ids`,                    query: { ...opts, id },                }));            },            /**             * »ñÈ¡²¿ÃÅÁĞ±í             */            async list(opts ={id:"1",fetch_child:false }) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/department/list`,                    query: opts,                }));            },            /**             * »ñÈ¡²¿ÃÅÏêÇé             * @param {String} id             * @param {Object} opts ÆäÓà²ÎÊı             */            async get(id,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/department/get`,                    query: { ...opts, id },                }));            },            /**             * ²éÑ¯²¿ÃÅµÄËùÓĞÉÏ¼¶¸¸²¿ÃÅÂ·¾¶             */            async list_parent_depts_by_dept(id,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/department/list_parent_depts_by_dept`,                    query: { ...opts, id },                }));            },            /**             * ²éÑ¯Ö¸¶¨ÓÃ»§µÄËùÓĞÉÏ¼¶¸¸²¿ÃÅÂ·¾¶             * @param opts             * @returns {Promise.<*>}             */            async list_parent_depts(userId,opts = {}) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/department/list_parent_depts`,                    query: { ...opts, userId },                }));            },            /**             * »ñÈ¡ÆóÒµÔ±¹¤ÈËÊı             * @param opts             * @returns {Promise.<*>}             */            async get_org_user_count(onlyActive=0) {                return this.fetch(await this.fg({                    url: `${this._apiHost}/user/get_org_user_count`,                    query: {onlyActive},                }));            },        };    }    get writeAPIs() {        return {            /**             * ´´½¨Èº×é             * @param {Object} group Èº×é             * @param {Object} opts  ÆäÓà²ÎÊı             */            async create(group, opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/department/create`,                    query: opts,                    data: group,                }));            },            /**             * ¸üĞÂ²¿ÃÅ             * @param {Object} group Èº×é             * @param {Object} opts  ÆäÓà²ÎÊı             */            async update(group, opts = {}) {                return this.fetch(await this.fg({                    method: 'POST',                    url: `${this._apiHost}/department/update`,                    query: opts,                    data:  group,                }));            },            /**             * É¾³ı²¿ÃÅ             * @param {String} id   Èº×éID             * @param {Object} opts ÆäÓà²ÎÊı             */            async delete(id,opts = {}) {                return this.fetch(await this.fg({                    method: 'GET',                    url: `${this._apiHost}/department/delete`,                    query: { ...opts, id },                }));            },        };    }    /* eslint-enable class-methods-use-this */};module.exports =DepartmentService;
+const querystring = require('querystring');
+const Provider = require('./provider');
+
+
+
+ class DepartmentService extends Provider {
+    /**
+     * æ„é€ å‡½æ•°
+     * @param {Object} opts æ›´å¤šé…ç½®é¡¹
+     */
+    constructor(opts) {
+        super(opts);
+    }
+
+
+
+
+    /* eslint-disable class-methods-use-this */
+    get readAPIs() {
+        return {
+            /**
+             * è·å–å­éƒ¨é—¨IDåˆ—è¡¨
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async list_ids(id,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/department/list_ids`,
+                    query: { ...opts, id },
+                }));
+            },
+
+
+
+            /**
+             * è·å–éƒ¨é—¨åˆ—è¡¨
+             */
+            async list(opts ={id:"1",fetch_child:false }) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/department/list`,
+                    query: opts,
+                }));
+            },
+
+            /**
+             * è·å–éƒ¨é—¨è¯¦æƒ…
+             * @param {String} id
+             * @param {Object} opts å…¶ä½™å‚æ•°
+             */
+            async get(id,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/department/get`,
+                    query: { ...opts, id },
+                }));
+            },
+
+            /**
+             * æŸ¥è¯¢éƒ¨é—¨çš„æ‰€æœ‰ä¸Šçº§çˆ¶éƒ¨é—¨è·¯å¾„
+             */
+            async list_parent_depts_by_dept(id,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/department/list_parent_depts_by_dept`,
+                    query: { ...opts, id },
+                }));
+            },
+
+            /**
+             * æŸ¥è¯¢æŒ‡å®šç”¨æˆ·çš„æ‰€æœ‰ä¸Šçº§çˆ¶éƒ¨é—¨è·¯å¾„
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async list_parent_depts(userId,opts = {}) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/department/list_parent_depts`,
+                    query: { ...opts, userId },
+                }));
+            },
+
+            /**
+             * è·å–ä¼ä¸šå‘˜å·¥äººæ•°
+             * @param opts
+             * @returns {Promise.<*>}
+             */
+            async get_org_user_count(onlyActive=0) {
+                return this.fetch(await this.fg({
+                    url: `${this._apiHost}/user/get_org_user_count`,
+                    query: {onlyActive},
+                }));
+            },
+
+
+        };
+    }
+    get writeAPIs() {
+        return {
+            /**
+             * åˆ›å»ºç¾¤ç»„
+             * @param {Object} group ç¾¤ç»„
+             * @param {Object} opts  å…¶ä½™å‚æ•°
+             */
+            async create(group, opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/department/create`,
+                    query: opts,
+                    data: group,
+                }));
+            },
+
+            /**
+             * æ›´æ–°éƒ¨é—¨
+             * @param {Object} group ç¾¤ç»„
+             * @param {Object} opts  å…¶ä½™å‚æ•°
+             */
+            async update(group, opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'POST',
+                    url: `${this._apiHost}/department/update`,
+                    query: opts,
+                    data:  group,
+                }));
+            },
+
+
+            /**
+             * åˆ é™¤éƒ¨é—¨
+             * @param {String} id   ç¾¤ç»„ID
+             * @param {Object} opts å…¶ä½™å‚æ•°
+             */
+            async delete(id,opts = {}) {
+                return this.fetch(await this.fg({
+                    method: 'GET',
+                    url: `${this._apiHost}/department/delete`,
+                    query: { ...opts, id },
+                }));
+            },
+
+        };
+    }
+    /* eslint-enable class-methods-use-this */
+};
+
+
+module.exports =DepartmentService;

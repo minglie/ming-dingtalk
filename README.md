@@ -13,29 +13,29 @@ dingtalk=new DingTalk({
     appkey: 'dingqy4fr3r9fzserjvn',
     appsecret: 's0tqfENW0JOrEPWrPZLGQky8EdQwCF6VZ2KyqhLZABLGFUlCcUKN7ODuvTUx7MLn',
     agentId:223960246,
-    sweepCodeLoginAppID:"dingoakle1mbzknj6xhbc0", //É¨ÂëµÇÂ½µÄappId
-    sweepCodeLoginAppsecret:"l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM"// //É¨ÂëµÇÂ½µÄAppsecret
+    sweepCodeLoginAppID:"dingoakle1mbzknj6xhbc0", //æ‰«ç ç™»é™†çš„appId
+    sweepCodeLoginAppsecret:"l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM"// //æ‰«ç ç™»é™†çš„Appsecret
 })
 
-//»ñÈ¡accessToken
+//èŽ·å–accessToken
 if(0)
 dingtalk.auth.getToken().then(res => console.log(res));
 
 
 
-//»ñÈ¡ÓÃ»§ÏêÇé
+//èŽ·å–ç”¨æˆ·è¯¦æƒ…
 dingtalk.user.get("manager6712").then(res => console.log(res.data));
-//»ñÈ¡²¿ÃÅÓÃ»§useridÁÐ±í
+//èŽ·å–éƒ¨é—¨ç”¨æˆ·useridåˆ—è¡¨
 //dingtalk.user.getDeptMember("71433174").then(res => console.log(res.data));
-//»ñÈ¡²¿ÃÅÓÃ»§
+//èŽ·å–éƒ¨é—¨ç”¨æˆ·
 //dingtalk.user.simplelist({department_id:"71433174",offset:0,size:5}).then(res => console.log(res.data));
-//»ñÈ¡²¿ÃÅÓÃ»§ÏêÇé
+//èŽ·å–éƒ¨é—¨ç”¨æˆ·è¯¦æƒ…
 //dingtalk.user.listbypage({department_id:"71433174",offset:0,size:5}).then(res => console.log(res.data));
-//»ñÈ¡¹ÜÀíÔ±ÁÐ±í
+//èŽ·å–ç®¡ç†å‘˜åˆ—è¡¨
 //dingtalk.user.get_admin().then(res => console.log(res.data));
-//»ñÈ¡¹ÜÀíÔ±Í¨Ñ¶Â¼È¨ÏÞ·¶Î§
+//èŽ·å–ç®¡ç†å‘˜é€šè®¯å½•æƒé™èŒƒå›´
 //dingtalk.user.get_admin_scope("manager6712").then(res => console.log(res.data));
-//¸ù¾Ýunionid»ñÈ¡userid
+//æ ¹æ®unionidèŽ·å–userid
 //dingtalk.user.getUseridByUnionid("O6VquZgrammhMIIWPXM2egiEiE").then(res => console.log(res.data));
 
 if(0)
@@ -43,13 +43,13 @@ dingtalk.user.getuserinfo("199a57636b713257b6ab002b2603ab1e").then(res => consol
 
 
 
-//´´½¨ÓÃ»§
+//åˆ›å»ºç”¨æˆ·
 if(0)
 dingtalk.user.create({
     "userid": "zhangsan00",
-    "name": "ÕÅÈý",
+    "name": "å¼ ä¸‰",
     "department": [71528142],
-    "position": "²úÆ·¾­Àí",
+    "position": "äº§å“ç»ç†",
     "mobile": "13325478946",
     "tel" : "xxxx-xxxxxxx",
     "workPlace" :"",
@@ -60,20 +60,20 @@ dingtalk.user.create({
     "isHide": false,
     "isSenior": false,
     "extattr": {
-        "°®ºÃ":"ÂÃÓÎ",
-        "ÄêÁä":"24"
+        "çˆ±å¥½":"æ—…æ¸¸",
+        "å¹´é¾„":"24"
     }
 }).then(res => console.log(res.data));
 
 
 
-//¸üÐÂÓÃ»§
+//æ›´æ–°ç”¨æˆ·
 if(0)
     dingtalk.user.update({
         "userid": "zhangsan",
-        "name": "ÕÅÈý4",
+        "name": "å¼ ä¸‰4",
         "department": [71528142],
-        "position": "²úÆ·¾­Àí",
+        "position": "äº§å“ç»ç†",
         "mobile": "13325478946",
         "tel" : "xxxx-xxxxxxx",
         "workPlace" :"",
@@ -84,53 +84,53 @@ if(0)
         "isHide": false,
         "isSenior": false,
         "extattr": {
-            "°®ºÃ":"ÂÃÓÎ",
-            "ÄêÁä":"24"
+            "çˆ±å¥½":"æ—…æ¸¸",
+            "å¹´é¾„":"24"
         }
     }).then(res => console.log(res.data));
 
 
-//É¾³ýÓÃ»§
+//åˆ é™¤ç”¨æˆ·
 if(0)
 dingtalk.user.delete("zhangsan00").then(res => console.log(res.data));
 
 
 
-//»ñÈ¡×Ó²¿ÃÅIDÁÐ±í
+//èŽ·å–å­éƒ¨é—¨IDåˆ—è¡¨
 if(0)
 dingtalk.department.list_ids("71528142").then(res => console.log(res.data));
 
 
-//»ñÈ¡²¿ÃÅÁÐ±í
+//èŽ·å–éƒ¨é—¨åˆ—è¡¨
 if(0)
 dingtalk.department.list({id:"71433174",fetch_child:true}).then(res => console.log(res.data));
 
 
-//»ñÈ¡²¿ÃÅÏêÇé
+//èŽ·å–éƒ¨é—¨è¯¦æƒ…
 
 if(0)
 dingtalk.department.get("71433174").then(res => console.log(res.data));
 
-//²éÑ¯²¿ÃÅµÄËùÓÐÉÏ¼¶¸¸²¿ÃÅÂ·¾¶
+//æŸ¥è¯¢éƒ¨é—¨çš„æ‰€æœ‰ä¸Šçº§çˆ¶éƒ¨é—¨è·¯å¾„
 if(0)
 dingtalk.department.list_parent_depts_by_dept("71433174").then(res => console.log(res.data));
 
 
-//²éÑ¯Ö¸¶¨ÓÃ»§µÄËùÓÐÉÏ¼¶¸¸²¿ÃÅÂ·¾¶
+//æŸ¥è¯¢æŒ‡å®šç”¨æˆ·çš„æ‰€æœ‰ä¸Šçº§çˆ¶éƒ¨é—¨è·¯å¾„
 if(0)
 dingtalk.department.list_parent_depts("manager6712").then(res => console.log(res.data));
 
 
-//»ñÈ¡ÆóÒµÔ±¹¤ÈËÊý
+//èŽ·å–ä¼ä¸šå‘˜å·¥äººæ•°
 if(0)
 dingtalk.department.get_org_user_count().then(res => console.log(res.data));
 
 
-//´´½¨²¿ÃÅ
+//åˆ›å»ºéƒ¨é—¨
 if(0)
 dingtalk.department.create(
     {
-        "name": "¶¤¶¤ÊÂÒµ²¿",
+        "name": "é’‰é’‰äº‹ä¸šéƒ¨",
         "parentid": "1",
         "order": "1",
         "createDeptGroup": true,
@@ -147,12 +147,12 @@ dingtalk.department.create(
 
 
 
-//¸üÐÂ²¿ÃÅ
+//æ›´æ–°éƒ¨é—¨
 if(0)
 dingtalk.department.update(
     {
         id:"114433438",
-        "name": "¶¤¶¤ÊÂÒµ²¿1",
+        "name": "é’‰é’‰äº‹ä¸šéƒ¨1",
         "parentid": "1",
         "order": "1",
         "createDeptGroup": true,
@@ -171,57 +171,57 @@ if(0)
 dingtalk.department.delete("114433438").then(res => console.log(res.data));
 
 
-//»ñÈ¡½ÇÉ«ÁÐ±í
+//èŽ·å–è§’è‰²åˆ—è¡¨
 if(0)
 dingtalk.role.list().then(res => console.log(JSON.stringify(res.data)));
 
 
-//»ñÈ¡½ÇÉ«ÏÂµÄÔ±¹¤ÁÐ±í
+//èŽ·å–è§’è‰²ä¸‹çš„å‘˜å·¥åˆ—è¡¨
 if(0)
 dingtalk.role.simplelist( {role_id:"327619019",size:20,offset:0}).then(res => console.log(res.data));
 
-//»ñÈ¡½ÇÉ«×é
+//èŽ·å–è§’è‰²ç»„
 if(0)
 dingtalk.role.getrolegroup( "327619001").then(res => console.log(res.data));
 
-//»ñÈ¡½ÇÉ«ÏêÇé
+//èŽ·å–è§’è‰²è¯¦æƒ…
 if(0)
 dingtalk.role.getrole(327619016).then(res => console.log(res.data));
 
 if(0)
-dingtalk.role.add_role({roleName:"ÏµËÑË÷5",groupId:327619006}).then(res => console.log(res.data));
+dingtalk.role.add_role({roleName:"ç³»æœç´¢5",groupId:327619006}).then(res => console.log(res.data));
 
 if(0)
-dingtalk.role.update_role({roleName:"ÏµËÑË÷1",roleId:447810818}).then(res => console.log(res.data));
+dingtalk.role.update_role({roleName:"ç³»æœç´¢1",roleId:447810818}).then(res => console.log(res.data));
 
-//É¾³ý½ÇÉ«
+//åˆ é™¤è§’è‰²
 if(0)
 dingtalk.role.deleterole(447864441).then(res => console.log(res.data));
 
 
 if(0)
-dingtalk.role.add_role_group("Ãû1").then(res => console.log(res.data));
+dingtalk.role.add_role_group("å1").then(res => console.log(res.data));
 
 
 if(0)
 dingtalk.role.addrolesforemps({roleIds:"327619009,327619025",userIds:"manager6712"}).then(res => console.log(res.data));
 
 
-//ÅúÁ¿É¾³ýÔ±¹¤½ÇÉ«
+//æ‰¹é‡åˆ é™¤å‘˜å·¥è§’è‰²
 if(0)
 dingtalk.role.removerolesforemps({roleIds:"327619009,327619025",userIds:"manager6712"}).then(res => console.log(res.data));
 
 
-//»ñÈ¡Íâ²¿ÁªÏµÈË±êÇ©ÁÐ±í
+//èŽ·å–å¤–éƒ¨è”ç³»äººæ ‡ç­¾åˆ—è¡¨
 if(0)
  dingtalk.extcontact.listlabelgroups().then(res => console.log(res.data));
 
 
-//»ñÈ¡Íâ²¿ÁªÏµÈË±êÇ©ÁÐ±í
+//èŽ·å–å¤–éƒ¨è”ç³»äººæ ‡ç­¾åˆ—è¡¨
 if(0)
  dingtalk.extcontact.list().then(res => console.log(res.data));
 
-//»ñÈ¡ÆóÒµÍâ²¿ÁªÏµÈËÏêÇé
+//èŽ·å–ä¼ä¸šå¤–éƒ¨è”ç³»äººè¯¦æƒ…
 
 if(0)
 dingtalk.extcontact.get("1918472868114179").then(res => console.log(res.data));
@@ -242,7 +242,7 @@ if(0)
 
 
 
-//»ñÈ¡¶þÎ¬Âë
+//èŽ·å–äºŒç»´ç 
 if(0)
     dingtalk.sns.getQRParmasUrl().then(res => console.log(res));
 
