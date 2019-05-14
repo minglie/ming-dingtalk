@@ -7,14 +7,14 @@ dingdingSDK
 const DingTalk = require('ming-dingtalk');
 
 dingtalk=new DingTalk({
-    corpId:"ding43b3a65d280ba98835c2f4657eb6378f",
-    corpSecret:"dufgB390RGxOMDLXn_j-hHVmEieCkCVlUZlF3i9G0gGQq-7YLJuhwQeZftj-e0O",
-    ssoSecret:"Os-K1XTRI1axu3GxRF3MlIxryWu8fnke-4ewwF9rrjZSbGeAUmHB5BVR_v0EfRgw",
-    appkey: 'dingqy4fr3r9fzserjvn',
-    appsecret: 's0tqfENW0JOrEPWrPZLGQky8EdQwCF6VZ2KyqhLZABLGFUlCcUKN7ODuvTUx7MLn',
-    agentId:223960246,
-    sweepCodeLoginAppID:"dingoakle1mbzknj6xhbc0", //扫码登陆的appId
-    sweepCodeLoginAppsecret:"l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM"// //扫码登陆的Appsecret
+    corpId:"xx",
+    corpSecret:"xx",
+    ssoSecret:"xx",
+    appkey: 'xx',
+    appsecret: 'xxx',
+    agentId:xxx,
+    sweepCodeLoginAppID:"xxx", //扫码登陆的appId
+    sweepCodeLoginAppsecret:"xxxxxx"// //扫码登陆的Appsecret
 })
 
 //获取accessToken
