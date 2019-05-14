@@ -12,7 +12,7 @@ dingtalk=new DingTalk({
     ssoSecret:"xx",
     appkey: 'xx',
     appsecret: 'xxx',
-    agentId:xxx,
+    agentId:12345,
     sweepCodeLoginAppID:"xxx", //扫码登陆的appId
     sweepCodeLoginAppsecret:"xxxxxx"// //扫码登陆的Appsecret
 })
