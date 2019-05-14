@@ -87,7 +87,7 @@ class Provider {
   set fetch(axios) {
     let agent = axios.create(this.options.request || {timeout:10000});
 
-      if(1)
+      if(0)
       agent.interceptors.request.use(config => {
           M.log(config.method,config.url,JSON.stringify(config.data))
           return config;
