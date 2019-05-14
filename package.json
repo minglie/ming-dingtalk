@@ -1,6 +1,6 @@
 {
   "name": "ming-dingtalk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "dingdingSDK",
   "main": "src/dingtalk/DingTalk.js",
   "scripts": {
