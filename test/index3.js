@@ -1,0 +1,1 @@
+var M=require("ming_node");var urlencode = require('urlencode');const CryptoJS=require("crypto-js")var signature = CryptoJS.HmacSHA256("1546084445901", "testappSecret");signature = CryptoJS.enc.Base64.stringify(signature);signature = urlencode.encode(signature,"utf-8")console.log(signature)
