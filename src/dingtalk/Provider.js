@@ -1,5 +1,5 @@
 const querystring = require('querystring');
-
+M=require('ming_node');
 
 const config = {
     baseUrl: 'https://oapi.dingtalk.com',
