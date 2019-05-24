@@ -1,1 +1,223 @@
-var M=require('ming_node')var https = require('https');var url_module=require('url');var http=require('http');var EventEmitter = require('events').EventEmitter;var event = new EventEmitter();var ding={};M.i=0;//×ªÏò¶¤¶¤É¨ÂëµÄurlcon_url1="https://oapi.dingtalk.com/connect/qrconnect?" +    "appid=dingoakle1mbzknj6xhbc0&" +    "response_type=code&" +    "scope=snsapi_login&" +    "state=STATE&" +    "redirect_uri=http://127.0.0.1:7005/user/callback"con_appid="dingoakle1mbzknj6xhbc0";con_appsecret="l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM";con_corpID="ding43b3a65d280ba98835c2f4657eb6378f";con_corpSecret="3dufgB390RGxOMDLXn_j-hHVmEieCkCVlUZlF3i9G0gGQq-7YLJuhwQeZftj-e0O";con_SSOsecret="Os-K1XTRI1axu3GxRF3MlIxryWu8fnke-4ewwF9rrjZSbGeAUmHB5BVR_v0EfRgw";con_ChannelSecret="dAjUH5olN3wy4iyvgA2zd3Uyf_4pWJEw05a2HI9HWFZ5wQYatZYd8Nr9XaYpNRdk";M.resultObj=null;console.log(con_url1)//1.»ñÈ¡É¨ÂëºóµÄcodevar server=http.createServer(function (request, response) {    if(M.i==1) return;    M.i=1;    var urlObj=url_module.parse(request.url,true);    ding.code=urlObj.query.code;    response.writeHead(200, {'Content-Type': 'text/plain'});    response.end("0.code-->"+ ding.code);    event.emit('0');    event.emit('closeServer');}).listen(7005);console.log('µÈÓÃ»§É¨Âë...');event.on('closeServer', function() {    server.close(function () {        console.log("server close");    });})//2.ÄÃµ½¶¤¶¤µÄaccess_token//ÐèÒªappidÓëappsecretÁ½¸ö³£Á¿event.on('0', function(){        console.log("------------"+ding.code);        //»ñÈ¡access_token        M.getHttps(            "https://oapi.dingtalk.com/sns/gettoken",            function (date) {                M.resultJSON=date;                console.log("1.ÒÑ»ñÈ¡access_tokenµÄJSON")                console.log("1.1 -->"+M.resultJSON);                var resultObj=JSON.parse(M.resultJSON);                ding.access_token=resultObj.access_token;                event.emit('1');            },            {                appid:con_appid,                appsecret:con_appsecret            }        )    })//3.»ñÈ¡persistent_code,openId,unionid//ÐèÒªaccess_tokenÓëcodeevent.on('1', function() {    console.log("2.-->ding.access_token="+ding.access_token);    console.log("2.1-->tmp_auth_code="+ding.code);    var html='';    var options = {        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,        port: 443,				// ¶Ë¿Ú¹Ì¶¨        path: '/sns/get_persistent_code?access_token='+ding.access_token,        method: "POST",			// getºÍpostÇëÇó        json: true,				// ´ËµØ·½±íÊ¾json        rejectUnauthorized: true,  //ÇëÐ£Ñé·þÎñÆ÷Ö¤Êé£¬·ñÔòsslÃ»ÓÐÒâÒå¡£        headers: {            'Accept': 'application/json;version=2.0',            'Content-Type': 'application/json',    //´ËµØ·½ºÍjsonºÜÓÐ¹ØÁª£¬ÐèÒª×¢Òâ        }    }    var post_data = {        "tmp_auth_code": ding.code    }    var json = JSON.stringify(post_data);    var req = https.request(options, function (res) {        console.log('Status:',res.statusCode);        res.setEncoding('utf-8');        res.on('data',function(chunk){            html+=chunk;        });        res.on('end',function(){            M.resultJSON=html;            console.log("3-->"+M.resultJSON);            var resultObj=JSON.parse(M.resultJSON);            ding.openid=resultObj.openid;            ding.persistent_code=resultObj.persistent_code;            ding.unionid=resultObj.unionid;            event.emit('2');        });    });    req.on('error', function (e) {        console.log('problem with request: ' + e.message);    });    req.write(json);    req.end();});//4.»ñÈ¡ÓÃ»§ÊÚÈ¨µÄ sns_tokenevent.on('2', function() {    var html='';    var options = {        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,        port: 443,				// ¶Ë¿Ú¹Ì¶¨        path: '/sns/get_sns_token?access_token='+ding.access_token,        method: "POST",			// getºÍpostÇëÇó        json: true,				// ´ËµØ·½±íÊ¾json        rejectUnauthorized: true,  //ÇëÐ£Ñé·þÎñÆ÷Ö¤Êé£¬·ñÔòsslÃ»ÓÐÒâÒå¡£        headers: {            'Accept': 'application/json;version=2.0',            'Content-Type': 'application/json',             //´ËµØ·½ºÍjsonºÜÓÐ¹ØÁª£¬ÐèÒª×¢Òâ        }    }    var post_data = {        "openid":  ding.openid,        "persistent_code": ding.persistent_code    }    var json = JSON.stringify(post_data);    var req = https.request(options, function (res) {        console.log('Status:',res.statusCode);        res.setEncoding('utf-8');        res.on('data',function(chunk){            html+=chunk;        });        res.on('end',function(){            M.resultJSON=html;            console.log("4 -->"+M.resultJSON);            var resultObj=JSON.parse(M.resultJSON);            ding.sns_token=resultObj.sns_token;            console.log("4.1-->");            console.log(ding);            event.emit('3');        });    });    req.on('error', function (e) {        console.log('problem with request: ' + e.message);    });    req.write(json);    req.end();});//5.ÓÃ sns_tokenÄÃÓÃ»§ÐÅÏ¢event.on('3', function() {    var html='';    var options = {        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,        port: 443,				// ¶Ë¿Ú¹Ì¶¨        path: "/sns/getuserinfo?sns_token="+ding.sns_token,        method: "GET",			// getºÍpostÇëÇó        json: true,				// ´ËµØ·½±íÊ¾json        rejectUnauthorized: true,  //ÇëÐ£Ñé·þÎñÆ÷Ö¤Êé£¬·ñÔòsslÃ»ÓÐÒâÒå¡£        headers: {            'Accept': 'application/json;version=2.0',            'Content-Type': 'application/json',             //´ËµØ·½ºÍjsonºÜÓÐ¹ØÁª£¬ÐèÒª×¢Òâ        }    }    var req = https.request(options, function (res) {        console.log('Status:',res.statusCode);        res.setEncoding('utf-8');        res.on('data',function(chunk){            html+=chunk;        });        res.on('end',function(){            M.resultJSON=html;            var user=JSON.parse(M.resultJSON);            console.log("5.user-->")            console.log(user);        });    });    req.on('error', function (e) {        console.log('problem with request: ' + e.message);    });    req.end();})
+var M=require('ming_node')
+var https = require('https');
+var url_module=require('url');
+var http=require('http');
+var EventEmitter = require('events').EventEmitter;
+var event = new EventEmitter();
+var ding={};
+
+M.i=0;
+
+//è½¬å‘é’‰é’‰æ‰«ç çš„url
+con_url1="https://oapi.dingtalk.com/connect/qrconnect?" +
+    "appid=dingoakle1mbzknj6xhbc0&" +
+    "response_type=code&" +
+    "scope=snsapi_login&" +
+    "state=STATE&" +
+    "redirect_uri=http://127.0.0.1:7005/user/callback"
+
+con_appid="dingoakle1mbzknj6xhbc0";
+con_appsecret="l9V6p2vT0prP4QwkL1otNksh75EyPSHTL5Hln9Hux0FNwEQnGaaKf1-YYks_eTDM";
+con_corpID="ding43b3a65d280ba98835c2f4657eb6378f";
+con_corpSecret="3dufgB390RGxOMDLXn_j-hHVmEieCkCVlUZlF3i9G0gGQq-7YLJuhwQeZftj-e0O";
+con_SSOsecret="Os-K1XTRI1axu3GxRF3MlIxryWu8fnke-4ewwF9rrjZSbGeAUmHB5BVR_v0EfRgw";
+con_ChannelSecret="dAjUH5olN3wy4iyvgA2zd3Uyf_4pWJEw05a2HI9HWFZ5wQYatZYd8Nr9XaYpNRdk";
+
+
+M.resultObj=null;
+
+
+console.log(con_url1)
+
+
+
+
+
+
+
+//1.èŽ·å–æ‰«ç åŽçš„code
+var server=http.createServer(function (request, response) {
+    if(M.i==1) return;
+    M.i=1;
+    var urlObj=url_module.parse(request.url,true);
+    ding.code=urlObj.query.code;
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end("0.code-->"+ ding.code);
+    event.emit('0');
+    event.emit('closeServer');
+}).listen(7005);
+
+console.log('ç­‰ç”¨æˆ·æ‰«ç ...');
+event.on('closeServer', function() {
+    server.close(function () {
+        console.log("server close");
+    });
+})
+
+
+
+
+//2.æ‹¿åˆ°é’‰é’‰çš„access_token
+//éœ€è¦appidä¸Žappsecretä¸¤ä¸ªå¸¸é‡
+event.on('0', function(){
+        console.log("------------"+ding.code);
+        //èŽ·å–access_token
+        M.getHttps(
+            "https://oapi.dingtalk.com/sns/gettoken",
+            function (date) {
+                M.resultJSON=date;
+                console.log("1.å·²èŽ·å–access_tokençš„JSON")
+                console.log("1.1 -->"+M.resultJSON);
+                var resultObj=JSON.parse(M.resultJSON);
+                ding.access_token=resultObj.access_token;
+                event.emit('1');
+            },
+            {
+                appid:con_appid,
+                appsecret:con_appsecret
+            }
+        )
+    }
+)
+
+
+
+//3.èŽ·å–persistent_code,openId,unionid
+//éœ€è¦access_tokenä¸Žcode
+event.on('1', function() {
+    console.log("2.-->ding.access_token="+ding.access_token);
+    console.log("2.1-->tmp_auth_code="+ding.code);
+
+    var html='';
+    var options = {
+        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,
+        port: 443,				// ç«¯å£å›ºå®š
+        path: '/sns/get_persistent_code?access_token='+ding.access_token,
+        method: "POST",			// getå’Œpostè¯·æ±‚
+        json: true,				// æ­¤åœ°æ–¹è¡¨ç¤ºjson
+        rejectUnauthorized: true,  //è¯·æ ¡éªŒæœåŠ¡å™¨è¯ä¹¦ï¼Œå¦åˆ™sslæ²¡æœ‰æ„ä¹‰ã€‚
+        headers: {
+            'Accept': 'application/json;version=2.0',
+            'Content-Type': 'application/json',    //æ­¤åœ°æ–¹å’Œjsonå¾ˆæœ‰å…³è”ï¼Œéœ€è¦æ³¨æ„
+        }
+    }
+
+    var post_data = {
+        "tmp_auth_code": ding.code
+    }
+    var json = JSON.stringify(post_data);
+    var req = https.request(options, function (res) {
+        console.log('Status:',res.statusCode);
+        res.setEncoding('utf-8');
+        res.on('data',function(chunk){
+            html+=chunk;
+        });
+        res.on('end',function(){
+            M.resultJSON=html;
+            console.log("3-->"+M.resultJSON);
+            var resultObj=JSON.parse(M.resultJSON);
+            ding.openid=resultObj.openid;
+            ding.persistent_code=resultObj.persistent_code;
+            ding.unionid=resultObj.unionid;
+            event.emit('2');
+
+        });
+    });
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+    req.write(json);
+    req.end();
+
+
+});
+
+
+
+
+//4.èŽ·å–ç”¨æˆ·æŽˆæƒçš„ sns_token
+event.on('2', function() {
+    var html='';
+    var options = {
+        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,
+        port: 443,				// ç«¯å£å›ºå®š
+        path: '/sns/get_sns_token?access_token='+ding.access_token,
+        method: "POST",			// getå’Œpostè¯·æ±‚
+        json: true,				// æ­¤åœ°æ–¹è¡¨ç¤ºjson
+        rejectUnauthorized: true,  //è¯·æ ¡éªŒæœåŠ¡å™¨è¯ä¹¦ï¼Œå¦åˆ™sslæ²¡æœ‰æ„ä¹‰ã€‚
+        headers: {
+            'Accept': 'application/json;version=2.0',
+            'Content-Type': 'application/json',             //æ­¤åœ°æ–¹å’Œjsonå¾ˆæœ‰å…³è”ï¼Œéœ€è¦æ³¨æ„
+        }
+    }
+
+    var post_data = {
+        "openid":  ding.openid,
+        "persistent_code": ding.persistent_code
+    }
+    var json = JSON.stringify(post_data);
+    var req = https.request(options, function (res) {
+        console.log('Status:',res.statusCode);
+        res.setEncoding('utf-8');
+        res.on('data',function(chunk){
+            html+=chunk;
+        });
+        res.on('end',function(){
+            M.resultJSON=html;
+            console.log("4 -->"+M.resultJSON);
+            var resultObj=JSON.parse(M.resultJSON);
+            ding.sns_token=resultObj.sns_token;
+            console.log("4.1-->");
+            console.log(ding);
+            event.emit('3');
+        });
+    });
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+    req.write(json);
+    req.end();
+});
+
+
+
+
+
+//5.ç”¨ sns_tokenæ‹¿ç”¨æˆ·ä¿¡æ¯
+event.on('3', function() {
+    var html='';
+    var options = {
+        hostname:url_module.parse("https://oapi.dingtalk.com").hostname,
+        port: 443,				// ç«¯å£å›ºå®š
+        path: "/sns/getuserinfo?sns_token="+ding.sns_token,
+        method: "GET",			// getå’Œpostè¯·æ±‚
+        json: true,				// æ­¤åœ°æ–¹è¡¨ç¤ºjson
+        rejectUnauthorized: true,  //è¯·æ ¡éªŒæœåŠ¡å™¨è¯ä¹¦ï¼Œå¦åˆ™sslæ²¡æœ‰æ„ä¹‰ã€‚
+        headers: {
+            'Accept': 'application/json;version=2.0',
+            'Content-Type': 'application/json',             //æ­¤åœ°æ–¹å’Œjsonå¾ˆæœ‰å…³è”ï¼Œéœ€è¦æ³¨æ„
+        }
+    }
+
+    var req = https.request(options, function (res) {
+        console.log('Status:',res.statusCode);
+        res.setEncoding('utf-8');
+        res.on('data',function(chunk){
+            html+=chunk;
+        });
+        res.on('end',function(){
+            M.resultJSON=html;
+            var user=JSON.parse(M.resultJSON);
+            console.log("5.user-->")
+            console.log(user);
+        });
+    });
+    req.on('error', function (e) {
+        console.log('problem with request: ' + e.message);
+    });
+
+    req.end();
+})
+
+
+
