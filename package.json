@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/minglie/ming-dingtalk#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "crypto-js": "^3.1.9-1",
     "ming_node": "^0.1.5",
     "urlencode": "^1.1.0"
