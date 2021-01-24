@@ -1,6 +1,6 @@
 {
   "name": "ming-dingtalk",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "dingdingSDK",
   "main": "src/dingtalk/DingTalk.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "crypto-js": "^3.1.9-1",
-    "ming_node": "^0.1.5",
+    "ming_node": "^1.9.1",
     "urlencode": "^1.1.0"
   }
 }
